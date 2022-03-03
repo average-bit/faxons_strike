@@ -1,31 +1,16 @@
-/**
- * Combined TCP and UDP Server
- *
- *
- */
-#include <iostream>
-#include "udp.h"
-#include "tcp.h"
+#include "mainwindow.h"
+#include <QApplication>
 
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    MainWindow w;
 
-int main(int argc, char *argv[]) {
-    try
-    {
-        boost::shared_ptr<Service> service(new Service());
-        boost::shared_ptr<TCPServer> tcpServer(new TCPServer(service));
-        UDPServer udpServer(service);
-        //Ports hardcoded for now
-        tcpServer->Start(7000);
-        udpServer.Start(7001);
-        service->Run();
-    }
-    catch (std::exception& e)
-    {
-        std::cerr << e.what() << std::endl;
-    }
+    QDateTime dateTime = dateTime.currentDateTime();
+    QString dateTimeString = dateTime.toString("V.MM.dd.yy.hh.mm.ss");
 
+    w.setWindowTitle("Multi-Server: By Devin Kathman and Dustin Faxon. " + dateTimeString);
+    w.show();
 
-    return 0;
+    return a.exec();
 }
-
-
